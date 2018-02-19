@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Star Battle Wars</title>
+  <!--link rel="stylesheet" href="./assets/css/reset.css"-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="./assets/css/style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="container-fluid"  id="mynavid">
+    <nav class="navbar navbar-default mynavbar">
+        <img class="logo" src="./assets/images/Logo.png"/>
+                  
+          <div class="navbar-header">                 
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>                        
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+                    
+            <ul class="nav navbar-nav navbar-right">
+              <li class="mymenu"><a onclick="reset(true)">Reset</a></li>
+              <li class="mymenu"><a onclick="mnMusicToggle()" id="MusicLabel">Music: On</a></li>
+              
+            </ul>
+          </div><!--/.nav-collapse -->
+        
+    </nav>
+    </div><!--/.container-fluid -->
+    <div class="container-fluid"></div>
+    <div class="jumbotron main-content" id="Splash">
+        <div class="jumbotron main-content selecthero container-fluid">
+            <div class="row">
+                <div class="col-md-12">Click a Hero to begin your mission!</div>
+              
+            </div>  
+            <div class="row">
+              <div class="col-md-4"><img class="portrait" id="Hero1" src="./assets/images/Luke.png"/></div>
+              <div class="col-md-4"><img class="portrait" id="Hero2" src="./assets/images/Han.png"/></div>
+              <div class="col-md-4"><img class="portrait" id="Hero3" src="./assets/images/Leia.png"/></div>
+            </div>  
+        </div>
+        <div class="fade"></div>
+
+        <section class="star-wars">
+        
+          <div class="crawl">
+        
+            <div class="title">
+              <p>Episode IV.b</p>
+              <h1>Star Battle Wars</h1>
+            </div>
+            <p>It is a period of civil war. Rebel spaceships, striking from a hidden base, have won their first victory against the evil Galactic Empire.</p>    
+            <p>After the battle, the hero's of the Rebelion have scattered across the Galaxy looking for allies, aid and resources.</p>
+            <p>In close pursuit however are the agents of the Empire, who's only goal is to defeat these so called heros and crush the rebellion once and for all.</p>
+            <p>Select a Hero from above and join the Battle!</p>
+            <p>...and may the force be with you!</p>
+            
+        
+          </div>
+        
+        </section>
+        
+    </div>
+    </div>    
+    
+    <div class="main-content jumbotron" id="Run" style="display:none">
+
+    </div>
+    <div class="main-content jumbotron" id="Over" style="display:none">
+
+    </div>
+    </div>
+    <audio controls loop autoplay  id="MusicToggle" style="display:none">
+        <source src="./assets/sounds/STheme.mp3" type="audio/mpeg" autoplay=true id="audioSplash">
+    </audio>
+  
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="./assets/javascript/game.js"></script>
+</body>
+</html>

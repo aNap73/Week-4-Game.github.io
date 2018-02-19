@@ -1,0 +1,104 @@
+body {
+  background-image: url("../images/StarWarsPoster.jpg");
+  background-size: cover;  
+  background-repeat: no-repeat;
+  font-family: 'Pathway Gothic One', sans-serif;
+}
+nav{
+  
+}
+.logo{
+  position: relative;
+  max-width: 70%;     
+  padding: 0;
+  margin: 0;
+  z-index: 5;
+  height: 25%;
+}
+.navbar-collapse{
+  width: 30%;
+  float: right;
+}
+.navbar-header{
+
+
+  width: 30%;
+  float: right;
+
+}
+.jumbotron{
+  opacity: .8;
+  border-radius: 30px;
+  width: 90%;  
+  min-height: 100px;
+  margin: 5px auto;
+} 
+
+.main-content{
+  background-color: rgb(116, 107, 146);
+  
+}
+
+.selecthero{
+  background-color: rgb(51, 19, 156);
+  color: #feda4a;
+  font-size: 2em;
+  text-align: center;
+  opacity: 1;
+}
+.fade {
+  position: relative;
+  width: 100%;
+
+  top: -25px;
+  background-image: linear-gradient(0deg, transparent, black 75%);
+  z-index: 1;
+}
+
+.star-wars {
+  display: flex;
+  justify-content: center;
+  position: relative;
+  height: 280px;
+  color: rgb(51, 19, 156);
+  color: #feda4a;
+  
+  font-family: 'Pathway Gothic One', sans-serif;
+  font-size: 1800%;
+  font-weight: 800;
+  letter-spacing: 6px;
+  line-height: 20%;
+  perspective: 400px;
+  text-align: justify;
+  overflow: hidden;
+}
+
+.crawl {
+  position: relative;
+  top: 1999px;
+  transform-origin: 50% 100%;
+  animation: crawl 120s linear;
+  animation-iteration-count: infinite;
+}
+
+.crawl > .title {
+  font-size: 90%;
+  text-align: center;
+}
+
+.crawl > .title h1 {
+  margin: 0 0 100px;
+  text-transform: uppercase;
+}
+
+@keyframes crawl {
+  0% {
+    top: 0;
+    transform: rotateX(20deg)  translateZ(0);
+  }
+  100% { 
+    top: -6000px;
+    transform: rotateX(25deg) translateZ(-2500px);
+  }
+}
+

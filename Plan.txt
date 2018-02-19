@@ -1,0 +1,24 @@
+Starwars RPG
+
+
+States
+	-Splash
+		-Pick Hero
+	-Run
+		Loop
+		 -Pick Enemy
+		 -Fight Enemy
+		<Win>	Defeat all enemies
+		<Lose>  HP = 0
+	-Over
+		-Display appropriate
+
+Resources Needed
+jQuery
+Bootstrap
+Google Fonts
+Images/Sounds
+	Heros
+	Enemies
+
+	

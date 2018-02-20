@@ -47,15 +47,20 @@
              <br>
              <br>
              <br>
+             <br>
+             <br>
+             <br>
             <div class="title">               
-            <p>Episode III.b</p>
+            <p>Episode IV.b</p>
               <h1>Star Battle Wars</h1>
             </div>
             <p>It is a period of civil war. Rebel spaceships, striking from a hidden base, have won their first victory against the evil Galactic Empire.</p>    
+            <br>
             <p>The hero's of the Rebelion have scattered across the Galaxy looking for allies, aid and resources.</p>
+            <br>
             <p>In close pursuit however are the ruthless agents of the Empire, who's only goal is to defeat the heros and crush the rebellion, once and for all.</p>
             <br>
-            <p>Select a Hero from the selection below and join the battle!</p>
+            <p>Select a Hero from the selection below and join the battle to save the galaxy!</p>
             <br>
             <p>May the Force Be With You!</p>
             
@@ -65,11 +70,11 @@
         </section>
         
     </div>
-    <div class="jumbotron selecthero container-fluid">
-      <div class="row">
-          <div class="col-md-12">Click a Hero to begin your mission!</div>
-        
-      </div>  
+    <div class="jumbotron selecthero container-fluid main-content " id="SplashSelect">
+      <div class="row"> 
+            <div class="col-md-12"><h2>Click a Hero to begin the battle and may the force be with you!</h2></div>
+      </div>
+            
       
       <div class="row" id="imgselector">
         <div class="col-md-4"><img class="portrait" id="Hero1" src="./assets/images/Luke.png"/></div>
@@ -78,8 +83,23 @@
       </div>  
   </div>
     
-    <div class="main-content jumbotron" id="Run" style="display:none">
-
+    <div class="main-content jumbotron container-fluid" id="Run" style="display:none">
+      <div class="row selecthero" id="imgselector">
+        <div class="col-md-4"><img class="runportrait" id="MyHero" src="./assets/images/Luke.png"/><p class="heroStory" id="HeroStory"></p></div>        
+        <div class="col-md-4"></div>        
+        <div class="col-md-4">
+          <div class="row selecthero" id="imgselector">
+            <img class="runportrait" id="villan1" src="./assets/images/Boba.png"/>
+          </div>
+          <div class="row selecthero" id="imgselector">
+            <img class="runportrait" id="villan2" src="./assets/images/Boba.png"/>
+           </div>
+          <div class="row selecthero" id="imgselector">
+            <img class="runportrait" id="villan3" src="./assets/images/Boba.png"/>
+          </div>
+        </div>
+        
+      </div>
     </div>
     <div class="main-content jumbotron" id="Over" style="display:none">
 
@@ -88,7 +108,9 @@
     <audio controls loop autoplay  id="MusicToggle" style="display:none">
         <source src="./assets/sounds/STheme.mp3" type="audio/mpeg" autoplay=true id="musicPlayer">
     </audio>
-    
+    <audio id="SFX" style="display:none">
+      <source src="" type="audio/mpeg" autoplay=true id="SFXPlayer">
+  </audio>
   
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="./assets/javascript/game.js"></script>

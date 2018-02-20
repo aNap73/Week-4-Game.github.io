@@ -44,11 +44,14 @@ body {
   text-align: center;
   opacity: 1;
 }
-row{
-
+.runportrait{
+  float: left;
+  margin: 5px;
 }
-
-
+.heroStory{
+  
+  text-align: justify ;
+}
 .star-wars {
   display: flex;
   justify-content: center;
@@ -61,8 +64,8 @@ row{
   font-size: 20em;
   font-weight: 800;
   letter-spacing: 6px;
-  line-height: 20%;
-  perspective: 400px;
+  line-height: 30%;
+  perspective: 350px;
   text-align: justify;
   overflow: hidden;
 }
@@ -81,7 +84,7 @@ row{
   position: relative;
   top:  0px;
   transform-origin: 0% 100%;
-  animation: crawl 60s linear;
+  animation: crawl 40s linear;
   animation-iteration-count: infinite;
 }
 
@@ -97,12 +100,12 @@ row{
 
 @keyframes crawl {
   0% {
-    top: 4000;
+    top: 3000;
     transform: rotateX(30deg)  translateZ(0);
   }
   100% { 
-    top: -4000px;
-    transform: rotateX(35deg) translateZ(-2500px);
+    top: -3000px;
+    transform: rotateX(35deg) translateZ(-1500px);
   }
 }
 

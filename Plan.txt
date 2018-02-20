@@ -21,4 +21,25 @@ Images/Sounds
 	Heros
 	Enemies
 
+
+Basic Psuedo
+	-Splash
+		-Display Title
+		-Display Instructions
+		<pick hero: change state to Run>
+	-Run
+		-Pick Enemy
+			-Display Remaining Enemies <no enemies: Game Over Win>
+			-<pick enemy: change state to Fight Loop>
+		-Fight
+			-On Attack
+			-Reduce enemy hp
+			-Reduce player hp
+			-<check players: ai:win = change state to over /  player:win = remove enemy; back to pick enemy; increase ap>
+	-Over
+		-Display Status and Gratz
+		-<on any key return to splash>
 	
+
+
+height: 800px;	

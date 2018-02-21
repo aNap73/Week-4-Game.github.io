@@ -45,6 +45,9 @@ body {
   margin: 2px 15px 0 0;
  
 }
+.arena{
+  font-size: .6em;
+}
 .jumbotron{
   opacity: .8;
   border-radius: 30px;

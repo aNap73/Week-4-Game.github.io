@@ -60,9 +60,9 @@
             <br>
             <p>In close pursuit however are the ruthless agents of the Empire, who's only goal is to defeat the heros and crush the rebellion, once and for all.</p>
             <br>
-            <p>Select a Hero from the selection below and join the battle to save the galaxy!</p>
+            <p>Select a Hero from below and join the battle to save the galaxy!</p>
             <br>
-            <p>May the Force Be With You!</p>
+            <p style="text-align:center">May the Force Be With You!</p>
             
         
           </div>
@@ -88,23 +88,21 @@
         <div class="col-md-6">
             <h2>Your Hero</h2>     
           <img class="runportrait" id="MyHero" src="./assets/images/Luke.png"/><p class="heroStory" id="HeroStory"></p>
+            
         </div>        
                 
         <div class="col-md-6">
-          <h2>Select a Villan to fight. Defeat them all to win!</h2>
+          <h2 id="InstructAttack">Select a Villan to fight. Defeat them all to win!</h2>
           <div class="row selecthero">
            <div class="col-md-4">
              <img class="runportrait vilport" id="Villan1" src="./assets/images/Vader.png"/>
            </div>
-          
-          
            <div class="col-md-4">
             <img class="runportrait vilport" id="Villan2" src="./assets/images/Sidious.png"/>
            </div>
            <div class="col-md-4">
             <img class="runportrait vilport" id="Villan3" src="./assets/images/Boba.png"/>
            </div>
-
         </div>
         <div class="row selecthero">
             <div class="col-md-12">
@@ -112,13 +110,21 @@
             </div> 
         </div>
         <div class="row selecthero">
-            <div class="col-md-4">
+            <div class="col-md-12">
+            <button class="swbutton"  id="BeginFightBut"><img id="attkimg" src="./assets/images/FightNow.png"></button>  
+            </div>
+            <div class="col-md-12">
+                <div class="arena" id="Arena">
+                  
+                </div>                  
+                </div> 
+          </div>
+        <!--div class="row selecthero">
+            <div class="col-md-12">
             <button class="swbutton"  id="BeginFightBut"><img id="attkimg" src="./assets/images/FightNow.png"></button>  
             </div> 
-        </div>
-        </div>
-        <!--div class="col-md-4"><img class="runportrait" id="MyVillan" src=""/><p class="villanStory" id="VillanStory"></p>
         </div-->
+        </div>
       </div>
     </div>
     <div class="main-content jumbotron" id="Over" style="display:none">

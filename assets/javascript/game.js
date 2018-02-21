@@ -90,24 +90,32 @@ SWGame ={
       SWGame.gameMusicPlayer.pause();
     }
     SWGame.bInFight = false;
+    $("#Arena").empty();
+    $("#MyHero").width(98 * 1.8);
+    $("#MyHero").height(102 * 1.8);
+    $("#InstructAttack").text('Select a Villan to fight. Defeat them all to win!');
   },
   Attack: function(){
     if(!SWGame.bInFight){
       SWGame.gameSFX.attr("src","./assets/sounds/ISaber.mp3");
       $("#attkimg").attr("src","./assets/images/Attack.png");
       SWGame.bInFight = true;
+      $("#InstructAttack").text('You are now in a fight to the death with ' + SWGame.Villan.hLongName);
     }
     else
     {
+      
       //Do Attack
       //Check for Win
       //Check for Lose
+      $("#VillanStory1").text("You swing, he counter swings");
       var rnd = Math.random();
       if(rnd > .5){
         SWGame.gameSFX.attr("src","./assets/sounds/LSaber.mp3");
       }else{
         SWGame.gameSFX.attr("src","./assets/sounds/Blaster.mp3");
       }
+      
     }
     SWGame.gameSFXPlayer.play();
   },
@@ -143,7 +151,7 @@ SWGame ={
     arrhName:["Luke","Leia","Han","C3-PO","R2-D2","Chewie"],
     arrhPic: ["./assets/images/Luke.png","./assets/images/Leia.png","./assets/images/Han.png","./assets/images/C3.png","./assets/images/R2.png","./assets/images/Chewie.png"],
     arrhSoundBite: ["./assets/sounds/Luke.mp3","./assets/sounds/Leia.mp3","./assets/sounds/Han.mp3","./assets/sounds/C3PO.mp3","./assets/sounds/R2D2.mp3","./assets/sounds/Chewie.mp3"],
-    arrhFlavorText: ["After the celebrations on Yavin IV, Luke was sent on a dangerous diplomatic missions to gain the help of outter rim warlords, gangsters and near do wells. Quickly he was betrayed however, and now is closely followed by imperial agents!","Leia was taken under the wing of the Rebel leader Mon Motha as a promising new commander. However, on a routine inspection mission their ship crashed landed on what they believed was an abandoned moon.  Unknown to them this would prove to be the fight of Leia’s life!" ,"Han was off to Tatooine. It was long overdue, he had to make payments to the Hutt's or he wouldn't be the pilot of the Falcon for much longer, heck he wouldn't be alive much longer. Unfortunately, the Falcon had other plans forcing Han to make repairs at a uncharted starport.", "C3-PO incompetent lacky of R2 has gotten himself in a pickle not 3 minutes after R2 left on some foolish errand. Enrolling in a local rebellion coding bootcamp, he believes it's his last hope to quell the evaporator rebellion simmering on Tatooine.  Unfortunately for our golden shiny friend, the Empire has other plans for him.","R2-D2 leader of the Rebellion, has taken it upon himself to destroy the emperors newest evil battle station. R2 realizes that while everyone else stands around being useless, only he  can truly save the galaxy... Luke.. pfft...", "Chewie was seperated from Han after the battle on Yavin, it was time for him to return to his homeworld due to recent events that portend of bad omens. Upon landing on his home planet, he was supprised to find his x girlfriend new boy friend was an impreial spy!"],
+    arrhFlavorText: ["After the celebrations on Yavin IV, Luke was sent on a dangerous diplomatic missions to gain the help of outter rim warlords, gangsters and near do wells. Quickly he was betrayed however, and now is closely followed by imperial agents!","Leia was taken under the wing of the Rebel leader Mon Motha as a promising new commander. However, on a routine inspection mission their ship crashed landed on what they believed was an abandoned moon.  Unknown to them this would prove to be the fight of Leia’s life!" ,"Han was off to Tatooine. It was long overdue, he had to make payments to the Hutts or he wouldn't be the pilot of the Falcon for much longer, heck he wouldn't be alive much longer. Unfortunately, the Falcon had other plans forcing Han to make repairs at a uncharted starport.", "C3-PO incompetent lacky of R2 has gotten himself in a pickle not 3 minutes after R2 left on some foolish errand. Enrolling in a local rebellion coding bootcamp, he believes it's his last hope to quell the evaporator rebellion simmering on Tatooine.  Unfortunately for our golden shiny friend, the Empire has other plans for him.","R2-D2 leader of the Rebellion, has taken it upon himself to destroy the emperors newest evil battle station. R2 realizes that while everyone else stands around being useless, only he  can truly save the galaxy... Luke.. pfft...", "Chewie was seperated from Han after the battle on Yavin, it was time for him to return to his homeworld due to recent events that portend of bad omens. Upon landing on his home planet, he was supprised to find his x girl friend became an imperial spy!"],
     arrhHP: ["200","75","150","60","70","180"],
     arrhDMG: ["20","10","15","7","15","18"],
     hName:"",
@@ -192,12 +200,14 @@ SWGame ={
   },
   Villan:{
     arrhName:["Vader","Sidious","Maul","Sebulba","Boba","Dooku"],
+    arrhLongName:["Darth Vader","Darth Sidious", "Darth Maul", "Sebulba", "Boba Fett", "Count Dooku"],
     arrhPic: ["./assets/images/Vader.png","./assets/images/Sidious.png","./assets/images/Maul.png","./assets/images/Sebulba.png","./assets/images/Boba.png","./assets/images/Duku.png"],
     arrhSoundBite: ["./assets/sounds/Vader.mp3","./assets/sounds/Sidious.mp3","./assets/sounds/Maul.mp3","./assets/sounds/Sebulba.mp3","./assets/sounds/BobaFett.mp3","./assets/sounds/Dooku.mp3"],
-    arrhFlavorText: ["This brooding lord of the sith, teeming with anger and hatred, reaches out with the force and detects your presense. Now nothing can save you from the wrath of Darth Vader.","You truly have stumbled upon a plot of great consequence, for at it's center is the Emperor himself, Lord Sidious!","You are confronted with one of the most dangerous and unique weapons in the known universe a dual bladed lightsaber.  Which can only mean one thing, Darth Maul has found you.","This notorious gangster, formerly a champion pod racer, has fallen on hard times. However his mean streak is still wider than the back end of a Hutt. Best steer clear of this one.", "No one has ever escaped Boba Fett before. You think you can best the best of the best... Boba thinks your just going to die tired.","This Dark Lord could only be defeated by a young Vader, having even escaped master Yoda and Obi-Wan at one point, ... enough said.... prepare to meet Count Dooku!"],
+    arrhFlavorText: ["This brooding lord of the sith, teeming with anger and hatred, reaches out with the force and detects your presense. Now nothing can save you from the wrath of Darth Vader.","You truly have stumbled upon a plot of great consequence, for at it's center is the Emperor himself, Lord Sidious!","You are confronted with one of the most dangerous and unique weapons in the known universe a dual bladed lightsaber.  Which can only mean one thing, Darth Maul has found you.","This notorious gangster, formerly a champion pod racer, has fallen on hard times, however, his mean streak is still wider than the back end of a Hutt. Best steer clear of this one or you may wind up banta fodder.", "No one has ever escaped Boba Fett before. You think you can best the best of the best... Boba thinks your just going to die tired.","This Dark Lord's saber style became so strong that he could only be defeated by a Anakin Skywalker himself, having even escaped master Yoda and Obi-Wan at one point... prepare to meet Count Dooku!"],
     arrhHP: ["200","75","150","60","70","180"],
     arrhDMG: ["20","10","15","7","15","18"],
     hName:"",
+    hLongName:"",
     hPic:"",    
     hSound:"",
     hText:"",
@@ -267,6 +277,7 @@ SWGame ={
       myVillan.hSound = myVillan.arrhSoundBite[i];
       myVillan.DMG = myVillan.arrhDMG[i];
       myVillan.hText = myVillan.arrhFlavorText[i];
+      myVillan.hLongName = myVillan.arrhLongName[i];
       return myVillan;
     }
   }

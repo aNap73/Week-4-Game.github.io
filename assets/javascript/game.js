@@ -112,6 +112,12 @@ SWGame ={
       SWGame.gameSFX.attr("src","./assets/sounds/ISaber.mp3");
       $("#attkimg").attr("src","./assets/images/Attack.png");      
       $("#InstructAttack").text('You are now in a fight to the death with ' + SWGame.Villan.hLongName);
+     
+      $("#VillanStory1").text("");
+      $("#BattleText").html("<p>" + SWGame.Villan.hText +  "</p>");
+      $(SWGame.Villan.curVillanImg).detach().appendTo('#ArenaPic');
+      $("#VillanHP").empty();
+      $("#VillanHP").text(SWGame.Villan.hHP);
       SWGame.bInFight = true;
     }
     else
@@ -172,7 +178,7 @@ SWGame ={
       }
       $("#VillanStory1").empty();
       $("#BattleText").html(BattleText);
-      $(SWGame.Villan.curVillanImg).detach().appendTo('#ArenaPic');     
+          
       
       
       SWGame.Hero.hDMG = (+SWGame.Hero.hDMG) + (+ SWGame.Hero.hBaseDMG);

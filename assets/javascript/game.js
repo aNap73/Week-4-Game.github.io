@@ -1,4 +1,5 @@
 SWGame ={
+  bPlayerWon: false,
   bOnLoad: true,
   bInFight: false,
   gameMusicPlayer:document.getElementById("MusicToggle"), 
@@ -100,10 +101,11 @@ SWGame ={
       });
       SWGame.bOnLoad = false;
     }
+    SWGame.Hero.hDMG = ( +SWGame.Hero.hBaseDMG);
   },
   Attack: function(){
     if(!SWGame.bInFight){
-      SWGame.Hero.hDMG = ( +SWGame.Hero.hBaseDMG);
+      
       SWGame.gameSFX.attr("src","./assets/sounds/ISaber.mp3");
       $("#attkimg").attr("src","./assets/images/Attack.png");      
       $("#InstructAttack").text('You are now in a fight to the death with ' + SWGame.Villan.hLongName);
@@ -121,19 +123,42 @@ SWGame ={
       BattleText += "<p>" + SWGame.Villan.hLongName + " counter attacks for " + SWGame.Villan.hDMG + "</p>";
       BattleText += "<p>" + SWGame.Hero.hName + "'s Health is " + SWGame.Hero.hHP + "</p>";
       BattleText += "<p>" + SWGame.Villan.hLongName + "'s Health is " + SWGame.Villan.hHP + "</p>";
+      //Check for Lose
+      if(SWGame.Hero.hHP <= 0)
+      {
+        BattleText += "<p>" + "Im afraid " + SWGame.Villan.hLongName + " has killed you..." +"</p>"
+        SWGame.setGameState("Over");
+        return;
+      }
       //Check for Win
       if(SWGame.Villan.hHP <= 0)
       { 
         BattleText += "<p>" + "You Did It!!! You killed " + SWGame.Villan.hLongName +"</p>"
         SWGame.Villan.curVillanImg.src = './assets/images/Skull.png';
-
+              
+        $("#InstructAttack").text('Select a Villan to fight. Defeat them all to win!');
+        $("#VillanStory1").text("");     
+        $(".vilport").width("98px");
+        $(".vilport").height("102px");
+        $("#attkimg").attr("src","./assets/images/FightNow.png");
+        $("#BeginFightBut").hide();
+        SWGame.bInFight = false;
+        SWGame.bPlayerWon = true;
+        $.each($(".vilport"),
+          function (i,val){if(val.src.indexOf('Skull')<0)
+                  {
+                    SWGame.bPlayerWon=false
+                  } 
+          });
+        if(SWGame.bPlayerWon){
+          SWGame.setGameState("Over");
+          return;
+        };
+        return;
       }
-      //Check for Lose
-      if(SWGame.Hero.hHP <= 0)
-      {BattleText += "<p>" + "Im afraid " + SWGame.Villan.hLongName + " has killed you..." +"</p>"}
+      
       $("#VillanStory1").html(BattleText);
       SWGame.Hero.hDMG = (+SWGame.Hero.hDMG) + (+ SWGame.Hero.hBaseDMG);
-      console.log("After round damage " + SWGame.Hero.hDMG);
       var rnd = Math.random();
       if(rnd > .5){
         SWGame.gameSFX.attr("src","./assets/sounds/LSaber.mp3");
@@ -172,8 +197,20 @@ SWGame ={
        $(document.body).css("backgroundImage","url('./assets/images/DeathStar.jpg')");
        break;
       case "Over":
-       $("#Over").show();       
-       this.gameMusic.attr("src","./assets/sounds/Lose.mp3");
+        $("#GameOverInside").remove();
+        if(SWGame.bPlayerWon){
+          $("body").css("backgroundImage","url('./assets/images/Ewok-celebration.jpg')");
+          this.gameMusic.attr("src","./assets/sounds/Win.mp3");
+          var GO = $("<div class='GameOver' id='GameOverInside'>").html("<h1 class='GameOver'>Game Over</h1><p class='GameOverp'>You Have Won! The Galaxy is SAFE! for now...</p><button class='swbutton' onclick='SWGame.reset()'><img src='./assets/images/Reset.png'/></button>");
+          $("#Over").append(GO);
+        }else{
+          $("body").css("backgroundImage","url('./assets/images/Lose.jpg')");
+          this.gameMusic.attr("src","./assets/sounds/Lose.mp3");
+          var GO = $("<div class='GameOver' id='GameOverInside'>").html("<h2 class='GameOver'>Game Over</h2><p class='GameOverp'>You Are Dead! The light in the Galaxy has dimmed...</p><button class='swbutton' onclick='SWGame.reset()'><img src='./assets/images/Reset.png'/></button>");
+          $("#Over").append(GO);
+        };              
+       
+       $("#Over").show();
        break;
     }
   },    
@@ -182,8 +219,8 @@ SWGame ={
     arrhPic: ["./assets/images/Luke.png","./assets/images/Leia.png","./assets/images/Han.png","./assets/images/C3.png","./assets/images/R2.png","./assets/images/Chewie.png"],
     arrhSoundBite: ["./assets/sounds/Luke.mp3","./assets/sounds/Leia.mp3","./assets/sounds/Han.mp3","./assets/sounds/C3PO.mp3","./assets/sounds/R2D2.mp3","./assets/sounds/Chewie.mp3"],
     arrhFlavorText: ["After the celebrations on Yavin IV, Luke was sent on a dangerous diplomatic missions to gain the help of outter rim warlords, gangsters and near do wells. Quickly he was betrayed however, and now is closely followed by imperial agents!","Leia was taken under the wing of the Rebel leader Mon Motha as a promising new commander. However, on a routine inspection mission their ship crashed landed on what they believed was an abandoned moon.  Unknown to them this would prove to be the fight of Leia’s life!" ,"Han was off to Tatooine. It was long overdue, he had to make payments to the Hutts or he wouldn't be the pilot of the Falcon for much longer, heck he wouldn't be alive much longer. Unfortunately, the Falcon had other plans forcing Han to make repairs at a uncharted starport.", "C3-PO incompetent lacky of R2 has gotten himself in a pickle not 3 minutes after R2 left on some foolish errand. Enrolling in a local rebellion coding bootcamp, he believes it's his last hope to quell the evaporator rebellion simmering on Tatooine.  Unfortunately for our golden shiny friend, the Empire has other plans for him.","R2-D2 leader of the Rebellion, has taken it upon himself to destroy the emperors newest evil battle station. R2 realizes that while everyone else stands around being useless, only he  can truly save the galaxy... Luke.. pfft...", "Chewie was seperated from Han after the battle on Yavin, it was time for him to return to his homeworld due to recent events that portend of bad omens. Upon landing on his home planet, he was supprised to find his x girl friend became an imperial spy!"],
-    arrhHP: ["200","75","150","60","70","180"],
-    arrhDMG: ["20","10","15","7","15","18"],
+    arrhHP: ["170","160","170","160","170","200"],
+    arrhDMG: ["14","11","12","7","12","8"],
     hName:"",
     hPic:"",    
     hSound:"",
@@ -239,8 +276,9 @@ SWGame ={
     arrhPic: ["./assets/images/Vader.png","./assets/images/Sidious.png","./assets/images/Maul.png","./assets/images/Sebulba.png","./assets/images/Boba.png","./assets/images/Duku.png"],
     arrhSoundBite: ["./assets/sounds/Vader.mp3","./assets/sounds/Sidious.mp3","./assets/sounds/Maul.mp3","./assets/sounds/Sebulba.mp3","./assets/sounds/BobaFett.mp3","./assets/sounds/Dooku.mp3"],
     arrhFlavorText: ["This brooding lord of the sith, teeming with anger and hatred, reaches out with the force and detects your presense. Now nothing can save you from the wrath of Darth Vader.","You truly have stumbled upon a plot of great consequence, for at it's center is the Emperor himself, Lord Sidious!","You are confronted with one of the most dangerous and unique weapons in the known universe a dual bladed lightsaber.  Which can only mean one thing, Darth Maul has found you.","This notorious gangster, formerly a champion pod racer, has fallen on hard times, however, his mean streak is still wider than the back end of a Hutt. Best steer clear of this one or you may wind up banta fodder.", "No one has ever escaped Boba Fett before. You think you can best the best of the best... Boba thinks your just going to die tired.","This Dark Lord's saber style became so strong that he could only be defeated by a Anakin Skywalker himself, having even escaped master Yoda and Obi-Wan at one point... prepare to meet Count Dooku!"],
-    arrhHP: ["200","75","150","60","70","180"],
-    arrhDMG: ["20","10","15","7","15","18"],
+    arrhHP: ["160","90","120","100","110","140"],
+    arrhDMG: ["16","18","13","10","12","13"],
+
     curVillanImg:"",
     hName:"",
     hLongName:"",
@@ -263,6 +301,7 @@ SWGame ={
     },
     clickMyVillan: function(myVillan, inElement){
       if(SWGame.bInFight){return myVillan};
+      if(inElement.src.indexOf('Skull')>=0){return myVillan};
       myVillan = myVillan.setMyVillan(myVillan,inElement.name);
       myVillan.curVillanImg = inElement;
       $("#MyVillan").attr("src",myVillan.hPic);
@@ -274,6 +313,8 @@ SWGame ={
       
       $("#VillanStory1").text(myVillan.hText);
       $("#BeginFightBut").show();
+      
+
       switch(inElement.id)
       {
         case "Villan1":

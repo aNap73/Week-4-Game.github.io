@@ -104,6 +104,7 @@ SWGame ={
     SWGame.Hero.hDMG = ( +SWGame.Hero.hBaseDMG);
   },
   Attack: function(){
+    $("#BattleText").empty();
     if(!SWGame.bInFight){
       
       SWGame.gameSFX.attr("src","./assets/sounds/ISaber.mp3");
@@ -133,6 +134,7 @@ SWGame ={
       //Check for Win
       if(SWGame.Villan.hHP <= 0)
       { 
+        $(SWGame.Villan.curVillanImg).detach().appendTo($(SWGame.Villan.curVillanElementId));
         BattleText += "<p>" + "You Did It!!! You killed " + SWGame.Villan.hLongName +"</p>"
         SWGame.Villan.curVillanImg.src = './assets/images/Skull.png';
               
@@ -156,8 +158,11 @@ SWGame ={
         };
         return;
       }
+      $("#VillanStory1").empty();
+      $("#BattleText").html(BattleText);
+      $(SWGame.Villan.curVillanImg).detach().appendTo('#ArenaPic');     
       
-      $("#VillanStory1").html(BattleText);
+      
       SWGame.Hero.hDMG = (+SWGame.Hero.hDMG) + (+ SWGame.Hero.hBaseDMG);
       var rnd = Math.random();
       if(rnd > .5){
@@ -278,7 +283,7 @@ SWGame ={
     arrhFlavorText: ["This brooding lord of the sith, teeming with anger and hatred, reaches out with the force and detects your presense. Now nothing can save you from the wrath of Darth Vader.","You truly have stumbled upon a plot of great consequence, for at it's center is the Emperor himself, Lord Sidious!","You are confronted with one of the most dangerous and unique weapons in the known universe a dual bladed lightsaber.  Which can only mean one thing, Darth Maul has found you.","This notorious gangster, formerly a champion pod racer, has fallen on hard times, however, his mean streak is still wider than the back end of a Hutt. Best steer clear of this one or you may wind up banta fodder.", "No one has ever escaped Boba Fett before. You think you can best the best of the best... Boba thinks your just going to die tired.","This Dark Lord's saber style became so strong that he could only be defeated by a Anakin Skywalker himself, having even escaped master Yoda and Obi-Wan at one point... prepare to meet Count Dooku!"],
     arrhHP: ["160","90","120","100","110","140"],
     arrhDMG: ["16","18","13","10","12","13"],
-
+    curVillanElementId: "",
     curVillanImg:"",
     hName:"",
     hLongName:"",
@@ -318,17 +323,17 @@ SWGame ={
       switch(inElement.id)
       {
         case "Villan1":
-          
+          SWGame.Villan.curVillanElementId = "#Vil1";
           $("#Villan1").width(98 * 1.8);
           $("#Villan1").height(102 * 1.8);
           break;
         case "Villan2":
-          //$("#VillanStory2").text(myVillan.hText);
+          SWGame.Villan.curVillanElementId = "#Vil2";
           $("#Villan2").width(98 * 1.8);
           $("#Villan2").height(102 * 1.8);
           break;
         case "Villan3":
-          //$("#VillanStory3").text(myVillan.hText);
+          SWGame.Villan.curVillanElementId  = "#Vil3";
           $("#Villan3").width(98 * 1.8);
           $("#Villan3").height(102 * 1.8);
           break;

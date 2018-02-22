@@ -1,4 +1,5 @@
 SWGame ={
+  bOnLoad: true,
   bInFight: false,
   gameMusicPlayer:document.getElementById("MusicToggle"), 
   gameSFXPlayer:document.getElementById("SFX"),
@@ -73,16 +74,7 @@ SWGame ={
     $(".vilport").height("102px");
     $("#BeginFightBut").hide();
     
-    $(".portrait").on('click',function () {
-      SWGame.Hero.clickMyHero(SWGame.Hero,this);
-      });
-
-    $(".vilport").on('click',function () {
-      SWGame.Villan.clickMyVillan(SWGame.Villan,this);
-      });
-    $("#BeginFightBut").on('click', function (){
-      SWGame.Attack();        
-    });
+    
     $("#attkimg").attr("src","./assets/images/FightNow.png");
     if(SWGame.bGameMusicOn){
       SWGame.gameMusicPlayer.play();
@@ -94,21 +86,54 @@ SWGame ={
     $("#MyHero").width(98 * 1.8);
     $("#MyHero").height(102 * 1.8);
     $("#InstructAttack").text('Select a Villan to fight. Defeat them all to win!');
+    SWGame.Hero.hDMG = 0;
+    SWGame.Hero.hBaseDMG =0;
+    if(SWGame.bOnLoad){
+    $(".portrait").on('click',function () {
+      SWGame.Hero.clickMyHero(SWGame.Hero,this);
+      });  
+    $(".vilport").on('click',function () {
+      SWGame.Villan.clickMyVillan(SWGame.Villan,this);
+      });
+    $("#BeginFightBut").on('click', function (){
+      SWGame.Attack();        
+      });
+      SWGame.bOnLoad = false;
+    }
   },
   Attack: function(){
     if(!SWGame.bInFight){
+      SWGame.Hero.hDMG = ( +SWGame.Hero.hBaseDMG);
       SWGame.gameSFX.attr("src","./assets/sounds/ISaber.mp3");
-      $("#attkimg").attr("src","./assets/images/Attack.png");
-      SWGame.bInFight = true;
+      $("#attkimg").attr("src","./assets/images/Attack.png");      
       $("#InstructAttack").text('You are now in a fight to the death with ' + SWGame.Villan.hLongName);
+      SWGame.bInFight = true;
     }
     else
-    {
-      
+    {      
+      var BattleText = "";
       //Do Attack
+      SWGame.Villan.hHP = (+SWGame.Villan.hHP) - (+SWGame.Hero.hDMG);
+      //Do Counter Attack
+      SWGame.Hero.hHP = (+SWGame.Hero.hHP) - (+SWGame.Villan.hDMG);      
+      
+      BattleText = "<p>You hit " + SWGame.Villan.hLongName + " for " + SWGame.Hero.hDMG + "</p> ";
+      BattleText += "<p>" + SWGame.Villan.hLongName + " counter attacks for " + SWGame.Villan.hDMG + "</p>";
+      BattleText += "<p>" + SWGame.Hero.hName + "'s Health is " + SWGame.Hero.hHP + "</p>";
+      BattleText += "<p>" + SWGame.Villan.hLongName + "'s Health is " + SWGame.Villan.hHP + "</p>";
       //Check for Win
+      if(SWGame.Villan.hHP <= 0)
+      { 
+        BattleText += "<p>" + "You Did It!!! You killed " + SWGame.Villan.hLongName +"</p>"
+        SWGame.Villan.curVillanImg.src = './assets/images/Skull.png';
+
+      }
       //Check for Lose
-      $("#VillanStory1").text("You swing, he counter swings");
+      if(SWGame.Hero.hHP <= 0)
+      {BattleText += "<p>" + "Im afraid " + SWGame.Villan.hLongName + " has killed you..." +"</p>"}
+      $("#VillanStory1").html(BattleText);
+      SWGame.Hero.hDMG = (+SWGame.Hero.hDMG) + (+ SWGame.Hero.hBaseDMG);
+      console.log("After round damage " + SWGame.Hero.hDMG);
       var rnd = Math.random();
       if(rnd > .5){
         SWGame.gameSFX.attr("src","./assets/sounds/LSaber.mp3");
@@ -116,8 +141,13 @@ SWGame ={
         SWGame.gameSFX.attr("src","./assets/sounds/Blaster.mp3");
       }
       
+      
+      
+      SWGame.gameSFXPlayer.play();
+      
     }
-    SWGame.gameSFXPlayer.play();
+    
+    
   },
   setGameState: function (inState){
      
@@ -159,6 +189,7 @@ SWGame ={
     hSound:"",
     hText:"",
     hHP: 0,
+    hBaseDMG: 0,
     hDMG: 0,    
     getRandomHero: function(myHero)
     {
@@ -175,7 +206,9 @@ SWGame ={
     clickMyHero: function(myHero, inElement){
       myHero = myHero.setMyHero(myHero,inElement.name);
       SWGame.gameSFX.attr("src",myHero.hSound);
-      SWGame.gameSFXPlayer.play(); 
+      try{SWGame.gameSFXPlayer.play();}catch(err){};
+      
+       
       SWGame.setGameState("Run");
  
       return myHero;
@@ -192,9 +225,11 @@ SWGame ={
       myHero.hName = myHero.arrhName[i];
       myHero.hPic = myHero.arrhPic[i];
       myHero.hHP = myHero.arrhHP[i];
-      myHero.hSound = myHero.arrhSoundBite[i];
-      myHero.DMG = myHero.arrhDMG[i];
+      myHero.hSound = myHero.arrhSoundBite[i];      
       myHero.hText = myHero.arrhFlavorText[i];
+      myHero.hDMG = (+myHero.arrhDMG[i]);
+      myHero.hBaseDMG = (+myHero.arrhDMG[i]);
+      
       return myHero;
     }
   },
@@ -206,6 +241,7 @@ SWGame ={
     arrhFlavorText: ["This brooding lord of the sith, teeming with anger and hatred, reaches out with the force and detects your presense. Now nothing can save you from the wrath of Darth Vader.","You truly have stumbled upon a plot of great consequence, for at it's center is the Emperor himself, Lord Sidious!","You are confronted with one of the most dangerous and unique weapons in the known universe a dual bladed lightsaber.  Which can only mean one thing, Darth Maul has found you.","This notorious gangster, formerly a champion pod racer, has fallen on hard times, however, his mean streak is still wider than the back end of a Hutt. Best steer clear of this one or you may wind up banta fodder.", "No one has ever escaped Boba Fett before. You think you can best the best of the best... Boba thinks your just going to die tired.","This Dark Lord's saber style became so strong that he could only be defeated by a Anakin Skywalker himself, having even escaped master Yoda and Obi-Wan at one point... prepare to meet Count Dooku!"],
     arrhHP: ["200","75","150","60","70","180"],
     arrhDMG: ["20","10","15","7","15","18"],
+    curVillanImg:"",
     hName:"",
     hLongName:"",
     hPic:"",    
@@ -228,7 +264,7 @@ SWGame ={
     clickMyVillan: function(myVillan, inElement){
       if(SWGame.bInFight){return myVillan};
       myVillan = myVillan.setMyVillan(myVillan,inElement.name);
-
+      myVillan.curVillanImg = inElement;
       $("#MyVillan").attr("src",myVillan.hPic);
             
       $("#VillanStory1").text("");     
@@ -259,7 +295,8 @@ SWGame ={
       
     
       SWGame.gameSFX.attr("src",myVillan.hSound);
-      SWGame.gameSFXPlayer.play();  
+      SWGame.gameSFXPlayer.play();
+      
       return myVillan;
     }, 
     setMyVillan: function(myVillan, myVillansName)
@@ -275,7 +312,7 @@ SWGame ={
       myVillan.hPic = myVillan.arrhPic[i];
       myVillan.hHP = myVillan.arrhHP[i];
       myVillan.hSound = myVillan.arrhSoundBite[i];
-      myVillan.DMG = myVillan.arrhDMG[i];
+      myVillan.hDMG = myVillan.arrhDMG[i];
       myVillan.hText = myVillan.arrhFlavorText[i];
       myVillan.hLongName = myVillan.arrhLongName[i];
       return myVillan;
@@ -285,4 +322,5 @@ SWGame ={
 }
 $(document).ready(function () {  
   SWGame.reset();
+  
 });

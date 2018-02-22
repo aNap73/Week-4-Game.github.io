@@ -104,6 +104,8 @@ SWGame ={
     SWGame.Hero.hDMG = ( +SWGame.Hero.hBaseDMG);
   },
   Attack: function(){
+    $("#HeroHP").empty();
+    $("#HeroHP").text(SWGame.Hero.hHP);
     $("#BattleText").empty();
     if(!SWGame.bInFight){
       
@@ -124,6 +126,12 @@ SWGame ={
       BattleText += "<p>" + SWGame.Villan.hLongName + " counter attacks for " + SWGame.Villan.hDMG + "</p>";
       BattleText += "<p>" + SWGame.Hero.hName + "'s Health is " + SWGame.Hero.hHP + "</p>";
       BattleText += "<p>" + SWGame.Villan.hLongName + "'s Health is " + SWGame.Villan.hHP + "</p>";
+
+      $("#HeroHP").empty();
+      $("#HeroHP").text(SWGame.Hero.hHP);
+
+      $("#VillanHP").empty();
+      $("#VillanHP").text(SWGame.Villan.hHP);
       //Check for Lose
       if(SWGame.Hero.hHP <= 0)
       {
@@ -134,6 +142,10 @@ SWGame ={
       //Check for Win
       if(SWGame.Villan.hHP <= 0)
       { 
+        $("#HeroHP").empty();
+        $("#HeroHP").text(SWGame.Hero.hHP);  
+        $("#VillanHP").empty();
+
         $(SWGame.Villan.curVillanImg).detach().appendTo($(SWGame.Villan.curVillanElementId));
         BattleText += "<p>" + "You Did It!!! You killed " + SWGame.Villan.hLongName +"</p>"
         SWGame.Villan.curVillanImg.src = './assets/images/Skull.png';
@@ -196,7 +208,8 @@ SWGame ={
        this.gameMusic.attr("src","./assets/sounds/SWFight.mp3");
        $("#MyHero").attr("src",SWGame.Hero.hPic);
        $("#HeroStory").text(SWGame.Hero.hText);
-
+       $("#HeroHP").empty();
+       $("#HeroHP").text(SWGame.Hero.hHP);
        
 
        $(document.body).css("backgroundImage","url('./assets/images/DeathStar.jpg')");

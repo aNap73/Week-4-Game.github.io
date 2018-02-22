@@ -106,6 +106,35 @@ body {
 #Over{
   padding:15%;
 }
+#HeroHP{
+  position:absolute;
+  background-color: black;
+  color: #feda4a;
+  padding: 0;
+  margin:0;
+  
+  left: 10px;
+  top: 170px;
+  font-size: 1.5em;
+  font-weight: bolder; 
+  
+  opacity: .7;
+  padding: 0;
+}
+#VillanHP{
+  position:absolute;
+  background-color: black;
+  color: #feda4a;
+  padding: 0;
+  margin:0;
+  font-size: .7em;
+  left: 10px;
+  top: 130px;
+  font-weight: bolder;
+  
+  opacity: .7;
+  padding: 0;
+}
 .GameOver{
   color: #feda4a;
   
